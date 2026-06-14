@@ -588,7 +588,6 @@ class PlayState extends MusicBeatState
 		// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
         for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'data/$songName/'))
-        {
             var namesScript:Array<String> = ["script", "script2", "script3"];
 
             for (name in namesScript)
@@ -606,7 +605,6 @@ class PlayState extends MusicBeatState
                     initHScript(dataHx);
                 #end
             }
-        }
 		#end
 
 		if(eventNotes.length > 0)
