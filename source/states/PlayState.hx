@@ -3316,7 +3316,7 @@ class PlayState extends MusicBeatState
 		var scriptToLoad:String = Paths.getSharedPath(scriptFile);
 		#end
 
-		if(FileSystem.exists(scriptToLoad))
+		if(OpenFlAssets.exists(scriptToLoad))
 		{
 			if (Iris.instances.exists(scriptToLoad)) return false;
 
