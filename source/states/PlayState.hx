@@ -587,19 +587,26 @@ class PlayState extends MusicBeatState
 
 		// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-		for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'data/$songName/'))
-			for (file in FileSystem.readDirectory(folder))
-			{
-				#if LUA_ALLOWED
-				if(file.toLowerCase().endsWith('.lua'))
-					new FunkinLua(folder + file);
-				#end
+        for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'data/$songName/'))
+        {
+            var namesScript:Array<String> = ["script", "script2", "script3"];
 
-				#if HSCRIPT_ALLOWED
-				if(file.toLowerCase().endsWith('.hx'))
-					initHScript(folder + file);
-				#end
-			}
+            for (name in namesScript)
+            {
+                var dataLua:String = folder + name + '.lua';
+                var dataHx:String = folder + name + '.hx';
+
+                #if LUA_ALLOWED
+                if (OpenFlAssets.exists(dataLua))
+                    new FunkinLua(dataLua);
+                #end
+
+                #if HSCRIPT_ALLOWED
+                if (OpenFlAssets.exists(dataHx))
+                    initHScript(dataHx);
+                #end
+            }
+        }
 		#end
 
 		if(eventNotes.length > 0)
@@ -799,7 +806,7 @@ class PlayState extends MusicBeatState
 		#end
 		{
 			scriptFile = Paths.getSharedPath(scriptFile);
-			if(FileSystem.exists(scriptFile))
+			if(OpenFlAssets.exists(scriptFile))
 				doPush = true;
 		}
 
