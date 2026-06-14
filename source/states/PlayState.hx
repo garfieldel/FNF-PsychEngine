@@ -836,11 +836,8 @@ class PlayState extends MusicBeatState
 		var foundFile:Bool = false;
 		var fileName:String = Paths.video(name);
 
-		#if sys
-		if (FileSystem.exists(fileName))
-		#else
 		if (OpenFlAssets.exists(fileName))
-		#end
+
 		foundFile = true;
 
 		if (foundFile)
