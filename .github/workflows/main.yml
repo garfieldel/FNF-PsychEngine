@@ -33,7 +33,8 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib install hxcpp > /dev/null --quiet
+          haxelib git hxcpp https://github.com/haxefoundation/hxcpp > /dev/null --quiet
+          haxelib run lime rebuild hxcpp
           chmod +x ./setup/unix.sh
           sh ./setup/unix.sh
       - name: Skip SScript setup mode
