@@ -34,7 +34,6 @@ jobs:
         run: |
           haxelib setup ~/haxelib
           haxelib git hxcpp https://github.com/haxefoundation/hxcpp > /dev/null --quiet
-          haxelib run lime rebuild hxcpp
           chmod +x ./setup/unix.sh
           sh ./setup/unix.sh
       - name: Skip SScript setup mode
@@ -48,7 +47,9 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME_17_X64
           haxelib run lime config ANDROID_SETUP true
       - name: Compile
-        run: haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}" -D officialBuild
+        run: |
+          haxelib run lime rebuild hxcpp
+          haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}" -D officialBuild
       - name: Publish Artifact
         uses: actions/upload-artifact@v4.3.4
         with:
