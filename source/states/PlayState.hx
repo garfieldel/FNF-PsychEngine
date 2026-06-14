@@ -431,19 +431,24 @@ class PlayState extends MusicBeatState
 		
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
 		// "SCRIPTS FOLDER" SCRIPTS
-		for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'scripts/'))
-			for (file in FileSystem.readDirectory(folder))
-			{
-				#if LUA_ALLOWED
-				if(file.toLowerCase().endsWith('.lua'))
-					new FunkinLua(folder + file);
-				#end
+        var folderData:String = Paths.getSharedPath() + 'scripts/';
+        var nameFile:Array<String> = ["script", "script2", "script3"];
 
-				#if HSCRIPT_ALLOWED
-				if(file.toLowerCase().endsWith('.hx'))
-					initHScript(folder + file);
-				#end
-			}
+        for (name in nameFile)
+        {
+            var dataLua:String = folderData + name + '.lua';
+            var dataHx:String = folderData + name + '.hx';
+
+            #if LUA_ALLOWED
+            if (OpenFlAssets.exists(dataLua))
+                new FunkinLua(dataLua);
+            #end
+
+            #if HSCRIPT_ALLOWED
+            if (OpenFlAssets.exists(dataHx))
+                initHScript(dataHx);
+            #end
+        }
 		#end
 			
 		var camPos:FlxPoint = FlxPoint.get(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
@@ -587,24 +592,24 @@ class PlayState extends MusicBeatState
 
 		// SONG SPECIFIC SCRIPTS
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
-        for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'data/$songName/'))
-            var namesScript:Array<String> = ["script", "script2", "script3"];
+        var folderData:String = Paths.getSharedPath() + 'data/$songName/';
+        var nameFile:Array<String> = ["script", "script2", "script3"];
 
-            for (name in namesScript)
-            {
-                var dataLua:String = folder + name + '.lua';
-                var dataHx:String = folder + name + '.hx';
+        for (name in nameFile)
+        {
+            var dataLua:String = folderData + name + '.lua';
+            var dataHx:String = folderData + name + '.hx';
 
-                #if LUA_ALLOWED
-                if (OpenFlAssets.exists(dataLua))
-                    new FunkinLua(dataLua);
-                #end
+            #if LUA_ALLOWED
+            if (OpenFlAssets.exists(dataLua))
+                new FunkinLua(dataLua);
+            #end
 
-                #if HSCRIPT_ALLOWED
-                if (OpenFlAssets.exists(dataHx))
-                    initHScript(dataHx);
-                #end
-            }
+            #if HSCRIPT_ALLOWED
+            if (OpenFlAssets.exists(dataHx))
+                initHScript(dataHx);
+            #end
+        }
 		#end
 
 		if(eventNotes.length > 0)
