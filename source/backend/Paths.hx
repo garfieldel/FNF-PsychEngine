@@ -283,7 +283,7 @@ class Paths
 	inline static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
 		var path:String = getPath(key, TEXT, !ignoreMods);
-		return (OpenFlAssets.exists(path)) ? File.getContent(path) : null;
+		return (OpenFlAssets.exists(path)) ? Assets.getText(path) : null;
 	}
 
 	inline static public function font(key:String)
