@@ -3613,21 +3613,23 @@ class PlayState extends MusicBeatState
 			return true;
 		}
 
-		for (folder in Mods.directoriesWithFile(Paths.getSharedPath(), 'shaders/'))
+		var dataShaders:String = Paths.getSharedPath() + 'shaders/';
+
+		for (folder in dataShaders)
 		{
 			var frag:String = folder + name + '.frag';
 			var vert:String = folder + name + '.vert';
 			var found:Bool = false;
-			if(FileSystem.exists(frag))
+			if(OpenFlAssets.exists(frag))
 			{
-				frag = File.getContent(frag);
+				frag = Assets.getText(frag);
 				found = true;
 			}
 			else frag = null;
 
-			if(FileSystem.exists(vert))
+			if(OpenFlAssets.exists(vert))
 			{
-				vert = File.getContent(vert);
+				vert = Assets.getText(vert);
 				found = true;
 			}
 			else vert = null;
